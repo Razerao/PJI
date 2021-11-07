@@ -1,0 +1,94 @@
+{% extends 'base.html'%}
+
+{% block 'titulo'%}
+Home
+
+{% endblock%}
+
+{% block 'body' %}
+
+
+<br>
+<div class="container">
+<div class="mx-auto" style="width: 110px;">
+  <a href="{% url 'sair'%}" class="btn btn-info btn-lg">SAIR</a>
+</div>
+<br>
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      
+      <li class="nav-item">
+        <a class="nav-link active" >Home</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'avisos' %}">Aviso</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'atas' %}">Atas</a>
+      </li>
+    
+           <li class="nav-item">
+        <a class="nav-link " href="{% url 'outros' %}">Outros</a>
+      </li>
+     
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Bem vindos ao Condomíno do Bruno</h5>
+    <p class="card-text">Esse site foi criado com o objetivo de facilite a comunicação entre o Síndico, o Conselho Consultivo e os demais condôminos que não integram a Administração nem o Conselho. </p>
+    
+  </div>
+</div>
+<div class="container"></div>
+<h1>Faça seu comentário ou sugestão: </h1>
+  <input id="comentario" type="text" placeholder="Faça seu comentário..." class="form-control">
+  <br>
+  <input onclick="envia_comentario()" type="button" value="Enviar" class="btn btn-success btn-lg">
+  <hr>
+  <div id="comentarios">
+    {% for i in comentarios%}
+      <h5 style="display: inline;">{{i.usuario}}</h5>
+      <p style="margin-left: 50px;">{{i.comentario}}</p>
+      <hr>
+    {% endfor %}
+  </div>
+</div>
+ 
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+function envia_comentario(){
+   comentario = document.getElementById('comentario').value
+   document.getElementById('comentario').value = ""
+   $.ajax({
+            url: "{% url 'comentarios'%}",
+            method: 'post',
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',                
+                'usuario_id': "{{usuario_id}}",
+                'comentario': comentario
+            },
+            success: function(resposta){
+              resposta = JSON.parse(resposta)
+              if(resposta['status'] == "1"){
+                div_comentario = document.getElementById('comentarios')
+                div_comentario.innerHTML = ""
+                for(i=0; i < resposta['comentarios'].length; i++){
+                  console.log('teste')
+                  div_comentario.innerHTML += '<h5 style="display: inline;">'+ resposta['comentarios'][i][0] +'</h5>'
+                  div_comentario.innerHTML += '<p style="margin-left: 50px;">' + resposta['comentarios'][i][1] + '</p>'
+                  div_comentario.innerHTML += '<hr>'
+
+
+                }
+              }
+
+            }
+
+        })
+}
+</script>
+{% endblock %}

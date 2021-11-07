@@ -1,0 +1,63 @@
+{% extends 'base.html'%}
+
+{% block 'titulo'%}
+Outros documentos
+
+{% endblock%}
+
+{% block 'body' %}
+
+<div class="container">
+  <br>
+  <div class="mx-auto" style="width: 110px;">
+    <a href="{% url 'sair'%}" class="btn btn-info btn-lg">SAIR</a>
+</div>
+  <br>
+  <div class="card text-center">
+    <div class="card-header">
+      <ul class="nav nav-pills card-header-pills">
+        
+        <li class="nav-item">
+          <a class="nav-link " href="{% url 'home' %}">Home</a>
+        </li>
+  
+        <li class="nav-item">
+          <a class="nav-link " href="{% url 'avisos' %}">Aviso</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link " href="{% url 'atas' %}">Atas</a>
+        </li>
+      
+             <li class="nav-item">
+          <a class="nav-link active " href="{% url 'outros' %}">Outros</a>
+        </li>
+       
+      </ul>
+    </div>
+    
+  </div>
+  <h1>Outros Documentos</h1>
+  <hr>
+  <div class="row">
+      
+
+      {% for i in outros %}
+
+      <div class="card" style = "width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{i.data}}</h5>
+          
+          <p class="card-text">{{i.descricao}}</p>
+          <a href="{% url 'outro' i.id %}" class="card-link">Acessar documento</a>
+          
+        </div>
+      </div>
+        
+      {% endfor %}
+
+
+  </div>
+
+</div>
+{% endblock%}

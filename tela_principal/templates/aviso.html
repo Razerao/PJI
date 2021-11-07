@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+
+{% block 'titulo'%}
+Avisos
+{% endblock%}
+
+{% block 'body' %}
+
+<div class="container">
+    <!DOCTYPE html>
+    <html>
+        <head>
+          <title>Avisos</title>
+        </head>
+        <body>
+          <h1>{{aviso.nome}}</h1>
+          <p>Click <a href="{{aviso.avisos.url}}">aqui</a> para visualizar o PDF.</p>
+        </body>
+      </html>
+      <div>
+
+</div>
+{% endblock %}

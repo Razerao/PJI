@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+
+{% block 'titulo'%}
+Outros Documentos
+{% endblock%}
+
+{% block 'body' %}
+<div class="container">
+    <!DOCTYPE html>
+    <html>
+        <head>
+          <title>Outros Documentos</title>
+        </head>
+        <body>
+          <h1>{{outro.nome}}</h1>
+          <p>Click <a href="{{outro.outros.url}}">aqui</a> para visualizar o PDF.</p>
+        </body>
+      </html>
+      <div>
+
+</div>
+{% endblock %}
